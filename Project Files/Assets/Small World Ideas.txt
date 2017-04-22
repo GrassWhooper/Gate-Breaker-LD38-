@@ -28,3 +28,16 @@ the air strike arrives, and they got to explore the results of it. he sees his f
 with three children around him.
 
 in this second level, they are attacked by people. 
+
+
+Small World_2.0:
+you play as a ship, in 3D Voxels. 
+you keep fighting, and travelling through space,
+there are gurdians at the end of the level, if you say the word pass word. 
+you are sent to the beginning of this small world one more time.
+
+the pass word is integrated into the environment. 
+even some enemies actually end up saying it. 
+
+gurdians are placed in the middle, and if you choose the wrong PW, they will send you to
+a random location entrance on the map.
