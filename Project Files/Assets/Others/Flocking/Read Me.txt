@@ -1,0 +1,23 @@
+How To Use :
+Simply, create an empty BoidController gameObject,
+and child as many boid(prefabs) bodies as you want to it. 
+how to use on 3D:
+you can simply change the colliders to be 3D. and change the prefab into a 3D Object. 
+or, you can, parent your 3D Object to the Actual Boid Body, and turn off your 3D OBject colliders, and then, offset and rotate the circle collider to fit your need.
+
+Note:
+tweak the priorities to change how the behavior functions. (at the boid controller script)
+
+
+this is made solely for hopes of it helping everyone who finds it. i hope
+it turns out useful.
+
+
+Credits: GrassWhooper Aka Mo'tasem Zakarneh
+License: you're free to use it, however you want, whenever you want, where you ever you want.
+without any restrictions what so ever. 
+
+
+https://twitter.com/MoMutrz
+GrassWhooper.itch.io
+https://www.facebook.com/motasem.zakarneh.94

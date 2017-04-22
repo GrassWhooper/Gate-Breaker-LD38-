@@ -6,6 +6,10 @@ public static class Constants
 {
     public const string horiAxis_KEY = "Horizontal";
     public const string vertAxis_KEY = "Vertical";
+    public const string Fire_KEY = "Fire1";
+    public const string PlayerTag_KEY = "Player";
+    public const string HidingScreenQuad_KEY = "HidingScreen";
+    public static readonly string[] PossibleAnswers = { "Small World", "Smallworld", "SmallWorld" };
 }
 
 public class MovementVariables

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MovementController))]
+[RequireComponent(typeof(Attack))]
 public class PlayerInputManager : MonoBehaviour
 {
     public float readForwardSpeed = 30;
@@ -13,12 +15,16 @@ public class PlayerInputManager : MonoBehaviour
     public MovementVariables.TiltAxis tiltAxis = MovementVariables.TiltAxis.Both;
 
     MovementController movementController = null;
-    void Start ()
+    Attack attack = null;
+    float timeBetweenShotsCounter = 0;
+
+    void Start()
     {
         movementController = GetComponent<MovementController>();
         movementController.TakeMovementVariable(new MovementVariables(
             readForwardSpeed, smoothTime, movementSpeed, rotationSpeed, tiltSpeed, tiltDegree, tiltAxis));
-	}
+        attack = GetComponent<Attack>();
+    }
     void Update()
     {
         float x = Input.GetAxis(Constants.horiAxis_KEY);
@@ -29,5 +35,20 @@ public class PlayerInputManager : MonoBehaviour
             input.Normalize();
         }
         movementController.Move(input);
+
+
+
+        if (Input.GetButtonDown(Constants.Fire_KEY)
+            || Input.GetKeyDown(KeyCode.LeftControl)
+            || Input.GetKeyDown(KeyCode.RightControl))
+        {
+            attack.StartAttack();
+        }
+        else if (Input.GetButtonUp(Constants.Fire_KEY)
+            || Input.GetKeyUp(KeyCode.LeftControl)
+            || Input.GetKeyUp(KeyCode.RightControl))
+        {
+            attack.StopAttack();
+        }
     }
 }
