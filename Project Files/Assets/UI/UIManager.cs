@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+        Debug.LogWarning("Quitting Game");
     }
 	// Use this for initialization
 	void Start () {
