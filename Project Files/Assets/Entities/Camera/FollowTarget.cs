@@ -10,6 +10,8 @@ public class FollowTarget : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        //Camera.main.aspect = 16 / 9;
+        Screen.SetResolution(1600, 900, Screen.fullScreen);
         offSet = transform.position - target.position;
 	}
 	
