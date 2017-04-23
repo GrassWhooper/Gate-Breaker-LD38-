@@ -5,7 +5,8 @@ using System;
 public class LevelManager : MonoBehaviour
 {
     public delegate void EndGameDelegate();
-    public event EndGameDelegate EndGameEvent;
+    public event EndGameDelegate WonEvent;
+    public event EndGameDelegate LostEvent;
 
     [SerializeField] float fadingOutTime = 0.5f;
     [SerializeField] float fadingInTime = 0.250f;
@@ -20,7 +21,7 @@ public class LevelManager : MonoBehaviour
     float timeCounter;
     Transform player;
 
-    public void GameOver()
+    public void GameOver(bool won)
     {
         if (teleportingRotine!=null)
         {
@@ -29,15 +30,32 @@ public class LevelManager : MonoBehaviour
         }
         teleporting = true;
         fadingOut = true;
-        teleportingRotine = StartCoroutine(Fade(fadingOut,EndGame));
+        if (won)
+        {
+            
+            teleportingRotine = StartCoroutine(Fade(fadingOut, WinGame));
+        }
+        else if (won==false)
+        {
+            
+            teleportingRotine = StartCoroutine(Fade(fadingOut, LoseGame));
+        }
     }
-
-    void EndGame()
+    void LoseGame()
+    {
+        
+        Time.timeScale = 0;
+        if (LostEvent!=null)
+        {
+            LostEvent();
+        }
+    }
+    void WinGame()
     {
         Time.timeScale = 0;
-        if (EndGameEvent!=null)
+        if (WonEvent!=null)
         {
-            EndGameEvent();
+            WonEvent();
         }
     }
 

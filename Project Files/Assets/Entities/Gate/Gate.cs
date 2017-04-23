@@ -9,7 +9,7 @@ public class Gate : MonoBehaviour
     public event EnteredGateDelegate EnteredGateEvent;
     public delegate void LeftGateDelegate();
     public event LeftGateDelegate LeftGateEvent;
-    public bool GotAnswer{get { return gotAnswer; }set{gotAnswer = value; if (gotAnswer == true){FindObjectOfType<LevelManager>().GameOver();}}}
+    public bool GotAnswer{get { return gotAnswer; }set{gotAnswer = value;}}
 
     bool gotAnswer = false;
     Transform player;

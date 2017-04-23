@@ -41,15 +41,16 @@ public class BoidsController : MonoBehaviour
 
     public enum Negibouring { ThroughParent, ThroughCollision }
     Negibouring negibouringMethod = Negibouring.ThroughParent;
-
-
-    private void Start()
+    public void RemoveBoid(Boid boidToRemove)
     {
-
+        boids.Remove(boidToRemove);
+        foreach (Boid b in boids)
+        {
+            b.negibours.Remove(boidToRemove);
+        }
     }
     void Awake()
     {
-
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform tra = transform.GetChild(i);

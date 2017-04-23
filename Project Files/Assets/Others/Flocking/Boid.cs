@@ -7,16 +7,16 @@ public class Boid : MonoBehaviour
 {
     public Transform[] targets = new Transform[2];
     public float reachedTargetRadious = 0.8f;
-
+    public Transform Target{get { return target; }set{target = value;if (value == null){target = targets[indexOfTarget];}}}
     public Vector3 Velocity { get { return velocity; } }
     public Vector3 MovementDirection { get { return movementDirection; } }
-
+    public BoidsController boidController { get { return boidsController; } }
     bool followsMouse = false;
     BoidsController boidsController;
     Vector3 movementDirection;
     public List<Boid> negibours = new List<Boid>();
     public List<Boid> collidedBoids = new List<Boid>();
-    Transform target = null;
+    [SerializeField] Transform target = null;
     int indexOfTarget = 0;
     Vector3 BoidToTargetDir
     {
@@ -34,7 +34,7 @@ public class Boid : MonoBehaviour
     Vector3 velocity = new Vector3();
     Vector3 targetVelocity = new Vector3();
     Vector3 dampVelocity = new Vector3();
-
+    int lastTargetIndex = 0;
     Boid GetClosestBoid(List<Boid> boids)
     {
         float closestDist = float.MaxValue;
@@ -111,6 +111,7 @@ public class Boid : MonoBehaviour
     }
     void SetTaret()
     {
+        
         float dist = Vector3.Distance(target.position, transform.position);
         if (dist<=reachedTargetRadious)
         {
@@ -120,7 +121,11 @@ public class Boid : MonoBehaviour
                 indexOfTarget = 0;
             }
         }
-        target = targets[indexOfTarget];
+        if (lastTargetIndex!= indexOfTarget)
+        {
+            lastTargetIndex = indexOfTarget;
+            target = targets[indexOfTarget];
+        }
     }
     // Update is called once per frame
     void LateUpdate()
@@ -182,19 +187,22 @@ public class Boid : MonoBehaviour
     {
         foreach (Boid boid in negibours)
         {
-            float dist = Vector3.Distance(boid.transform.position, transform.position);
-            if (dist <= boidsController.CollisionRadious)
+            if (boid != null)
             {
-                if (collidedBoids.Contains(boid) == false)
+                float dist = Vector3.Distance(boid.transform.position, transform.position);
+                if (dist <= boidsController.CollisionRadious)
                 {
-                    collidedBoids.Add(boid);
+                    if (collidedBoids.Contains(boid) == false)
+                    {
+                        collidedBoids.Add(boid);
+                    }
                 }
-            }
-            else if (dist > boidsController.CollisionRadious)
-            {
-                if (collidedBoids.Contains(boid) == true)
+                else if (dist > boidsController.CollisionRadious)
                 {
-                    collidedBoids.Remove(boid);
+                    if (collidedBoids.Contains(boid) == true)
+                    {
+                        collidedBoids.Remove(boid);
+                    }
                 }
             }
         }

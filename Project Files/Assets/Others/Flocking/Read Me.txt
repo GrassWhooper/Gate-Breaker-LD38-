@@ -14,6 +14,7 @@ it turns out useful.
 
 
 Credits: GrassWhooper Aka Mo'tasem Zakarneh
+
 License: you're free to use it, however you want, whenever you want, where you ever you want.
 without any restrictions what so ever. 
 
@@ -21,3 +22,6 @@ without any restrictions what so ever.
 https://twitter.com/MoMutrz
 GrassWhooper.itch.io
 https://www.facebook.com/motasem.zakarneh.94
+
+Notes: This Is A modified Version from the one in the package, where the bug of percentage is fixed,
+and it works for 3D. (this version was made with purpose of completing Ludum Dare #38 : Small World).

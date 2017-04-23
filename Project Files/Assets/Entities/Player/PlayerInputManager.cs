@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Attack))]
 public class PlayerInputManager : MonoBehaviour
 {
+    public bool followMouse = false;
     public float readForwardSpeed = 30;
     public float smoothTime = 0.1f;
     public float movementSpeed = 7.5f;
@@ -25,6 +26,7 @@ public class PlayerInputManager : MonoBehaviour
             readForwardSpeed, smoothTime, movementSpeed, rotationSpeed, tiltSpeed, tiltDegree, tiltAxis));
         attack = GetComponent<Attack>();
     }
+
     void Update()
     {
         float x = Input.GetAxis(Constants.horiAxis_KEY);
@@ -34,7 +36,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             input.Normalize();
         }
-        movementController.Move(input);
+        movementController.Move(input, followMouse);
 
 
 

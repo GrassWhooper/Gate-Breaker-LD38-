@@ -5,8 +5,9 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 3;
-
+    public GameObject hitEffect = null;
     public float extraDetectionRange = 0.02f;
+    public float sphereCastRadious = 0.5f;
     float damage;
     LayerMask layerToDetect;
     Vector3 lastPos = Vector3.zero;
@@ -25,11 +26,19 @@ public class Projectile : MonoBehaviour
         Vector3 direction = (-transform.position+ lastPos).normalized;
         Ray ray = new Ray(transform.position, direction);
         RaycastHit whatWasHit;
-        bool didHit = Physics.Raycast(ray, out whatWasHit, direction.magnitude + extraDetectionRange, layerToDetect);
+        bool didHit = Physics.SphereCast(ray, sphereCastRadious, out whatWasHit, direction.magnitude + extraDetectionRange, layerToDetect);
         Debug.DrawRay(transform.position, direction * (direction.magnitude + extraDetectionRange), Color.red);
         if (didHit==true)
         {
-            Debug.Log(whatWasHit.collider.name);
+            if (hitEffect!=null)
+            {
+                Instantiate(hitEffect, whatWasHit.point, Quaternion.identity);
+            }
+            
+            Health h = whatWasHit.collider.GetComponent<Health>();
+            
+            h.TakeDamage(damage);
+            Destroy(gameObject);
         }
     }
 }

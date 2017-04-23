@@ -19,6 +19,7 @@ public class MovementController : MonoBehaviour {
     Quaternion targetRotation = new Quaternion();
     Quaternion targetTiltRot = new Quaternion();
     MovementVariables movementVariables;
+    Vector3 mousePos;
 
     public void TakeMovementVariable(MovementVariables movementVariables)
     {
@@ -32,10 +33,10 @@ public class MovementController : MonoBehaviour {
         newPos = lastPos;
     }
 
-    public void Move(Vector3 input)
+    public void Move(Vector3 input,bool followMouse)
     {
         Movement(input);
-        LookForward(input);
+        LookForward(input,followMouse);
         Tilt(input);
     }
 
@@ -80,19 +81,27 @@ public class MovementController : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, movingTowards, movementStep);
         lastPos = transform.position;
     }
-    void LookForward(Vector3 input)
+    void LookForward(Vector3 input,bool followMouse)
     {
-
-        if (input.magnitude != 0)
+        if (followMouse == false)
         {
-            if ((newPos - lastPos).magnitude != 0)
+            if (input.magnitude != 0)
             {
-                targetRotation = Quaternion.LookRotation(transform.forward, newPos - lastPos);
+                if ((newPos - lastPos).magnitude != 0)
+                {
+                    targetRotation = Quaternion.LookRotation(transform.forward, newPos - lastPos);
+                }
+                transform.rotation =
+                    Quaternion.RotateTowards(transform.rotation, targetRotation, rotationStep);
             }
-            transform.rotation =
-                Quaternion.RotateTowards(transform.rotation, targetRotation, rotationStep);
+        }
+        else if (followMouse==true)
+        {
+            mousePos = Input.mousePosition;
+            mousePos.z = (transform.position.z -Camera.main.transform.position.z);
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            targetRotation = Quaternion.LookRotation(transform.forward, mousePos - transform.position);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationStep);
         }
     }
-
-
 }
